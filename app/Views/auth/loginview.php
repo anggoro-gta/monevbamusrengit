@@ -3,9 +3,9 @@
 <?= $this->section('logincontent'); ?>
 <div class="login-box">
     <!-- /.login-logo -->
-    <div class="card card-outline card-primary">
+    <div class="card card-outline card-danger">
         <div class="card-header text-center">
-            <a href="#" class="h1">BA Musren<b>Login</b></a>
+            <div class="h3">Monev<b>Musrenbang</b></div>
         </div>
         <div class="card-body">
             <p class="login-box-msg"><?= lang('Auth.loginTitle') ?></p>
