@@ -31,6 +31,8 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+//global routes
 $routes->get('/', 'Home::index');
 $routes->get('/gantipassword', 'Home::gantipassword');
 $routes->get('/home/updatepassword', 'Home::updatepassword');

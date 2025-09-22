@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="<?= base_url(); ?>/icon/data.png">
+    <link rel="icon" href="<?= base_url(); ?>/imageslogingta/logo.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Main Page</title>
