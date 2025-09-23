@@ -37,6 +37,12 @@ $routes->get('/', 'Home::index');
 $routes->get('/gantipassword', 'Home::gantipassword');
 $routes->get('/home/updatepassword', 'Home::updatepassword');
 
+//YEARS PICK
+$routes->post('/home/saveyears', 'Home::saveyears');
+
+//REAL INDEX AFTER CHOOSE YEARS
+$routes->get('/home/realindex', 'Home::realindex');
+
 //musrenbang
 $routes->get('/entryusulan', 'Entryusulanmusren::index', ['filter' => 'role:bidangadmin']);
 $routes->get('/masterttd', 'Entryusulanmusren::masterttd', ['filter' => 'role:bidangadmin']);

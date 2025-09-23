@@ -16,31 +16,73 @@ class Home extends BaseController
 
     public function index()
     {
-        $data = [
-            'tittle' => 'Home'
-        ];
+        $session = \Config\Services::session();
 
-        return view('pages/homenew', $data);
+        if (isset($_SESSION['years'])) {
+            return redirect()->to('/home/realindex');
+        } else {
+            $data = [
+                'tittle' => 'Pilih Tahun'
+            ];
+
+            return view('years/yearsview', $data);
+        }
     }
 
-    public function register()
+    public function saveyears()
     {
-        $data = [
-            'tittle' => 'Register'
-        ];
+        if (isset($_SESSION['years'])) {
+            return redirect()->to('/home/realindex');
+        } else {
+            $session = \Config\Services::session();
+            $get_years = $this->request->getVar('inputStatus');
 
-        return view('auth/registerview', $data);
+            $newdata = [
+                'years'  => $get_years,
+                'ok' => 'coba coba'
+            ];
+
+            $session->set($newdata);
+
+            return redirect()->to('/home/realindex');
+        }
     }
+
+    public function realindex()
+    {
+        if (isset($_SESSION['years'])) {
+            $data = [
+                'tittle' => 'Home'
+            ];
+
+            return view('pages/homenew', $data);
+        } else {
+            return redirect()->to('/');
+        }
+    }
+
+    // public function register()
+    // {
+    //     $data = [
+    //         'tittle' => 'Register'
+    //     ];
+
+    //     return view('auth/registerview', $data);
+    // }
 
     public function gantipassword()
     {
-        session();
-        $data = [
-            'tittle' => 'Ganti Password',
-            'validation' => \Config\Services::validation(),
-        ];
+        if (isset($_SESSION['years'])) {
+            session();
+            $data = [
+                'tittle' => 'Ganti Password',
+                'validation' => \Config\Services::validation(),
+            ];
 
-        return view('pages/gantipassword_view', $data);
+            return view('pages/gantipassword_view', $data);
+        } else {
+            return redirect()->to('/');
+        }
     }
 
     public function updatepassword()

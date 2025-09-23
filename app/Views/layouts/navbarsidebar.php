@@ -6,7 +6,11 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/" class="nav-link">Home</a>
+            <?php if (isset($_SESSION['years'])) { ?>
+                <a href="#" class="nav-link">Tahun Anggaran <?= $_SESSION['years']; ?></a>
+            <?php } else { ?>
+                <a href="#" class="nav-link">Home</a>
+            <?php } ?>
         </li>
         <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -49,6 +53,17 @@
             </div>
         </div>
 
+        <!-- Sidebar year-->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <?php if (isset($_SESSION['years'])) { ?>
+                    <a href="#" class="d-block">Tahun Anggaran <?= $_SESSION['years']; ?></a>
+                <?php } else { ?>
+                    <a href="#" class="d-block">Home</a>
+                <?php } ?>
+            </div>
+        </div>
+
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -64,7 +79,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/" class="nav-link ahref-home">
+                            <a href="/home/realindex" class="nav-link ahref-home">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Home</p>
                             </a>
@@ -76,7 +91,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>                                
+                </li>
 
                 <?php if (in_groups('bidangadmin')) : ?>
                     <li class="nav-item limaster">
@@ -86,7 +101,7 @@
                                 Master
                                 <i class="fas fa-angle-left right"></i>
                             </p>
-                        </a>                        
+                        </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="/masterttd" class="nav-link ahrefmasterttd">
@@ -148,7 +163,7 @@
                             </li>
                         </ul>
                     </li> -->
-                <?php endif; ?>                
+                <?php endif; ?>
 
                 <li class="nav-item">
                     <a href="<?= base_url('logout'); ?>" class="nav-link">
