@@ -5,7 +5,7 @@
 <div class="container">
     <div class="left-side"></div>
     <div class="right-side">
-        <p class="login-box-msg"><?= lang('Auth.loginTitle') ?></p>
+        <!-- <p class="login-box-msg"><?= lang('Auth.loginTitle') ?></p> -->
 
         <?= view('Myth\Auth\Views\_message_block') ?>
 
@@ -14,7 +14,7 @@
         <h2>Monitoring Musrenbang</h2>
 
         <form action="<?= route_to('login') ?>" method="post">
-            <?= csrf_field() ?>            
+            <?= csrf_field() ?>
 
             <?php if ($config->validFields === ['email']) : ?>
                 <div class="input-group mb-3">
@@ -44,8 +44,9 @@
             <?php endif; ?>
 
             <div class="input-group mb-3">
-                <input type="password" name="password" class="form-input  <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>">
+                <input type="password" id="password" name="password" class="form-input  <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>">
                 <div class="input-group-append">
+                    <input type="checkbox" onclick="showHide()"> Tampilkan Password
                     <!-- <div class="input-group-text">
                         <span class="fas fa-lock"></span>
                     </div> -->
@@ -70,5 +71,20 @@
         </form>
     </div>
 </div>
+
+<?= $this->endSection(); ?>
+
+<?= $this->section('javascriptkhusus'); ?>
+
+<script>
+    function showHide() {
+        var inputan = document.getElementById("password");
+        if (inputan.type === "password") {
+            inputan.type = "text";
+        } else {
+            inputan.type = "password";
+        }
+    }
+</script>
 
 <?= $this->endSection(); ?>
