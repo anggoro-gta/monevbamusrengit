@@ -16,36 +16,31 @@ class Home extends BaseController
 
     public function index()
     {
-        $session = \Config\Services::session();
-
-        if (isset($_SESSION['years'])) {
-            return redirect()->to('/home/realindex');
-        } else {
-            $data = [
-                'tittle' => 'Pilih Tahun'
+        $data = [
+                'tittle' => 'Home'
             ];
 
-            return view('years/yearsview', $data);
-        }
+        return view('pages/homenew', $data);
     }
 
     public function saveyears()
     {
-        if (isset($_SESSION['years'])) {
-            return redirect()->to('/home/realindex');
-        } else {
-            $session = \Config\Services::session();
-            $get_years = $this->request->getVar('inputStatus');
-
-            $newdata = [
-                'years'  => $get_years,
-                'ok' => 'coba coba'
-            ];
-
-            $session->set($newdata);
-
-            return redirect()->to('/home/realindex');
+        if (!$this->request->isAJAX()) {
+            return $this->response->setStatusCode(400)
+                ->setJSON(['ok'=>false,'msg'=>'Bad request']);
         }
+
+        $year = trim((string)$this->request->getPost('year'));
+        if ($year === '' || !ctype_digit($year)) {
+            return $this->response->setStatusCode(422)
+                ->setJSON(['ok'=>false,'msg'=>'Tahun tidak valid']);
+        }
+
+        session()->set('years', (int) $year);
+
+        $resp = ['ok'=>true, 'year'=>(int)$year];
+        if (function_exists('csrf_hash')) $resp['csrf'] = csrf_hash(); // kalau CSRF rotate
+        return $this->response->setJSON($resp);
     }
 
     public function realindex()
@@ -72,17 +67,12 @@ class Home extends BaseController
 
     public function gantipassword()
     {
-        if (isset($_SESSION['years'])) {
-            session();
-            $data = [
-                'tittle' => 'Ganti Password',
-                'validation' => \Config\Services::validation(),
-            ];
+        $data = [
+            'tittle' => 'Ganti Password',
+            'validation' => \Config\Services::validation(),
+        ];
 
-            return view('pages/gantipassword_view', $data);
-        } else {
-            return redirect()->to('/');
-        }
+        return view('pages/gantipassword_view', $data);
     }
 
     public function updatepassword()

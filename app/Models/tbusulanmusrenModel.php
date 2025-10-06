@@ -73,6 +73,20 @@ class tbusulanmusrenModel extends Model
         return $query->getResultArray();
     }
 
+    public function getusulanbyopd($opd_id, $tahun)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('tb_usulan_musren');
+        $builder->select('*');
+        $array = ['kode_opd' => $opd_id, 'status' => '1', 'tahun' => $tahun];
+        $builder->where($array);
+        $builder->orderBy('id_usulan', 'ASC');
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+
+
     public function countusulan($idbidang, $idkecamatan)
     {
         $db = \Config\Database::connect();

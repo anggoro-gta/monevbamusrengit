@@ -5,12 +5,17 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <?php if (isset($_SESSION['years'])) { ?>
-                <a href="#" class="nav-link">Tahun Anggaran <?= $_SESSION['years']; ?></a>
-            <?php } else { ?>
-                <a href="#" class="nav-link">Home</a>
-            <?php } ?>
+        <li class="nav-item d-sm-inline-block">
+            <?php 
+                $thn = null;
+                if (isset($_SESSION['years'])) {
+                    $thn = $_SESSION['years'];
+                } 
+            ?>
+            <select class="form-control" id="years">
+                <option value="" selected disabled>Tahun Anggaran</option>
+                <?php musren_years_dropdown($thn); ?>
+            </select>
         </li>
         <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -92,6 +97,17 @@
                         </li>
                     </ul>
                 </li>
+                <?php if (in_groups(['useropd', 'userkec'])) : ?>
+                    <li class="nav-item">
+                        <a href="<?= base_url('usulan'); ?>" class="nav-link ahref-usulan">
+                            <i class="nav-icon fas fa-list"></i>
+                            <p>
+                                Data Usulan
+                                <!-- <i class="fas fa-angle-left right"></i> -->
+                            </p>
+                        </a>
+                </li>
+                <?php endif; ?>
 
                 <?php if (in_groups('bidangadmin')) : ?>
                     <li class="nav-item limaster">
@@ -180,3 +196,35 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+<script>
+(function(){
+    const $years = document.getElementById('years');
+    if (!$years) return;
+
+    const url = "<?= site_url('home/saveyears'); ?>";
+    const csrfName = "<?= csrf_token() ?>";
+    let   csrfHash = "<?= csrf_hash() ?>";
+
+    $years.addEventListener('change', function(){
+        const year = this.value;
+        if (!year) return;
+
+        const form = new FormData();
+        form.append('year', year);
+        form.append(csrfName, csrfHash);
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            body: form
+        })
+        .then(r => r.json())
+        .then(json => {
+            if (!json.ok) { alert(json.msg || 'Gagal menyimpan tahun'); return; }
+            if (json.csrf) csrfHash = json.csrf; // update token kalau rotate
+            location.reload(); // biar semua bagian baca session baru
+        })
+        .catch(() => alert('Koneksi gagal'));
+    });
+})();
+</script>

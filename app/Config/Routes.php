@@ -81,6 +81,10 @@ $routes->post('/penandatanganan/deletepenandatanganan', 'Entryttd::deletepenanda
 $routes->get('/printbamusrenbang', 'Cetakmusren::index', ['filter' => 'role:bidangadmin']);
 $routes->get('/printlampiranba', 'Cetakmusren::printlamiran', ['filter' => 'role:bidangadmin']);
 
+//usulan
+$routes->post('/usulan', 'Usulan::index');
+$routes->post('usulan/datatable', 'Usulan::datatable');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
