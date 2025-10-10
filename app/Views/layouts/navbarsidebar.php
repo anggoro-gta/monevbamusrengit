@@ -99,7 +99,7 @@
                 </li>
                 <?php if (in_groups(['useropd', 'userkec'])) : ?>
                     <li class="nav-item">
-                        <a href="<?= base_url('usulan'); ?>" class="nav-link ahref-usulan">
+                        <a href="<?= base_url('usulan/data'); ?>" class="nav-link ahref-usulan">
                             <i class="nav-icon fas fa-list"></i>
                             <p>
                                 Data Usulan

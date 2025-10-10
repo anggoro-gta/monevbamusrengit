@@ -92,6 +92,31 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 
+<!-- Modal Detail -->
+<div class="modal fade" id="modalDetail" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">TANGGING NOMENKLATUR <span class="text-sm text-info" id="span-id-usulan"></span></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span>&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Nama Program</dt><dd class="col-sm-9" id="d-program">-</dd>
+                <dt class="col-sm-3">Nama Kegiatan</dt><dd class="col-sm-9" id="d-kegiatan">-</dd>
+                <dt class="col-sm-3">Nama Sub Kegiatan</dt><dd class="col-sm-9" id="d-sub-kegiatan">-</dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+
 
 <?= $this->endSection(); ?>
 
@@ -182,24 +207,70 @@ $(function () {
             {
                 data: 'anggaran',
                 render: function (data, type, row) {
-                // Data mentah dari server harus numeric (mis. 150000000)
-                if (type === 'display') {
-                    return Number(data || 0).toLocaleString('id-ID'); // tampil "150.000.000"
-                }
-                // untuk filter/sort/export: pakai nilai mentah (tanpa titik)
-                return data;
+                    // Data mentah dari server harus numeric (mis. 150000000)
+                    if (type === 'display') {
+                        return Number(data || 0).toLocaleString('id-ID'); // tampil "150.000.000"
+                    }
+                    // untuk filter/sort/export: pakai nilai mentah (tanpa titik)
+                    return data;
                 },
                 className: 'text-right'
             },
 
             // Action (buat tombol di client)
-            { data: null, orderable:false, searchable:false,
-            render: r => `<a href="${BASE}usulan/detail/${r.id}" class="btn btn-sm btn-primary">Detail</a>` }
+            {
+                data: null, orderable:false, searchable:false, className:'text-center',
+                render: r => `
+                <button type="button" class="btn btn-sm btn-info mb-1 btn-detail" 
+                        data-id="${r.id_usulan}" title="Detail">
+                    <i class="fa fa-eye"></i>
+                </button>
+                <a href="${BASE}usulan/show/${r.id_usulan}" 
+                    class="btn btn-sm btn-primary mb-1" title="Update Status">
+                    <i class="fa fa-edit"></i>
+                </a>`
+            }
         ]
     });
 
     // contoh: reload saat ganti tahun
     $('#years').on('change', () => table.ajax.reload(null, false));
+
+    const valOrDash = v => (v === null || v === undefined || v === '') ? '-' : v;
+
+    $(document).on('click', '.btn-detail', function () {
+        const id = $(this).data('id');
+        const tokenName = "<?= csrf_token() ?>";
+        const tokenVal  = $('meta[name="<?= csrf_token() ?>"]').attr('content');
+
+        // placeholder loading
+        $('#d-id-usulan,#d-kecamatan,#d-masalah,#d-alamat,#d-opd,#d-sipd,#d-anggaran').text('Memuat...');
+        $('#modalDetail').modal('show');
+
+        $.ajax({
+            url: "<?= site_url('usulan/detail-json'); ?>",
+            type: "POST",
+            data: { [tokenName]: tokenVal, id_usulan: id },
+            success: (res) => {
+                if (res.csrf) $('meta[name="<?= csrf_token() ?>"]').attr('content', res.csrf);
+                if (!res || !res.data) {
+                    $('#modalDetail .modal-body').html('<div class="text-danger">Data detail tidak ditemukan.</div>');
+                    return;
+                }
+                const d = res.data;
+                $('#d-program').text(`: `+valOrDash(d.nama_program));
+                $('#d-kegiatan').text(`: `+valOrDash(d.nama_kegiatan));
+                $('#d-sub-kegiatan').text(`: `+valOrDash(d.nama_sub_kegiatan));
+                $('#span-id-usulan').text(`[ ${d.id_usulan} ]`);
+                // Tambah field lain/riwayat kalau perlu…
+            },
+            error: () => {
+                $('#modalDetail .modal-body').html('<div class="text-danger">Gagal memuat data.</div>');
+            }
+        });
+    });
+
+
 });
 </script>
 

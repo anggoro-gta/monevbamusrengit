@@ -125,3 +125,9 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+# Abaikan semua file foto hasil upload
+public/usulan/*
+
+# Tetapi tetap commit placeholder agar folder ada di repo
+!public/usulan/.gitkeep
+

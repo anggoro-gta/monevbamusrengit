@@ -82,8 +82,12 @@ $routes->get('/printbamusrenbang', 'Cetakmusren::index', ['filter' => 'role:bida
 $routes->get('/printlampiranba', 'Cetakmusren::printlamiran', ['filter' => 'role:bidangadmin']);
 
 //usulan
-$routes->post('/usulan', 'Usulan::index');
+$routes->get('usulan/data', 'Usulan::index');     
 $routes->post('usulan/datatable', 'Usulan::datatable');
+$routes->post('usulan/detail-json', 'Usulan::detailJson');
+$routes->get('usulan/show/(:num)', 'Usulan::show/$1');
+$routes->post('usulan/update-status', 'Usulan::updateStatus');
+$routes->post('usulan/foto-delete', 'Usulan::deleteFoto');
 
 /*
  * --------------------------------------------------------------------

@@ -75,14 +75,21 @@ class tbusulanmusrenModel extends Model
 
     public function getusulanbyopd($opd_id, $tahun)
     {
-        $db = \Config\Database::connect();
-        $builder = $db->table('tb_usulan_musren');
-        $builder->select('*');
-        $array = ['kode_opd' => $opd_id, 'status' => '1', 'tahun' => $tahun];
-        $builder->where($array);
-        $builder->orderBy('id_usulan', 'ASC');
-        $query = $builder->get();
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tb_usulan_musren u');
 
+        $builder->select('u.*, r.id AS id_riwayat, r.status');
+        $builder->join('tb_riwayat_usulan r', 'r.id_usulan_musren = u.id_usulan', 'left');
+
+        $builder->where([
+            'u.kode_opd' => $opd_id,
+            'u.status'   => '1',
+            'u.tahun'    => $tahun,
+        ]);
+
+        $builder->orderBy('u.id_usulan', 'ASC');
+
+        $query = $builder->get();
         return $query->getResultArray();
     }
 
