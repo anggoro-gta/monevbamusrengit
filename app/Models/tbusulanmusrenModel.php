@@ -78,11 +78,31 @@ class tbusulanmusrenModel extends Model
         $db      = \Config\Database::connect();
         $builder = $db->table('tb_usulan_musren u');
 
-        $builder->select('u.*, r.id AS id_riwayat, r.status');
-        $builder->join('tb_riwayat_usulan r', 'r.id_usulan_musren = u.id_usulan', 'left');
+        $builder->select('u.*, r.id AS id_riwayat, r.status  AS status_pelaksanaan');
+        $builder->join('tb_riwayat_usulan r', 'r.id_usulan_musren = u.id', 'left');
 
         $builder->where([
             'u.kode_opd' => $opd_id,
+            'u.status'   => '1',
+            'u.tahun'    => $tahun,
+        ]);
+
+        $builder->orderBy('u.id_usulan', 'ASC');
+
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
+    public function getusulanbykec($kec_id, $tahun)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tb_usulan_musren u');
+
+        $builder->select('u.*, r.id AS id_riwayat, r.status AS status_pelaksanaan');
+        $builder->join('tb_riwayat_usulan r', 'r.id_usulan_musren = u.id', 'left');
+
+        $builder->where([
+            'u.kode_kec' => $kec_id,
             'u.status'   => '1',
             'u.tahun'    => $tahun,
         ]);

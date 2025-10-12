@@ -8,11 +8,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Data Usulan</h1>
+                    <h1>Laporan Usulan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active">Data Usulan</li>
+                        <li class="breadcrumb-item active">Laporan Usulan</li>
                     </ol>
                 </div>
             </div>
@@ -30,6 +30,10 @@
                 <div class="col-12">
 
                     <div class="card">
+                        <div class="card-header">
+                            <a href="<?= base_url('usulan/export-pdf')?>" class="btn btn-danger btn-sm"><i class="fa fa-file-pdf mr-1"></i>Export PDF</a>
+                            <a href="<?= base_url('usulan/export-excel')?>" class="btn btn-success btn-sm"><i class="fa fa-file-excel mr-1"></i>Export Excel</a>
+                        </div>
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -40,15 +44,8 @@
                                         <th>Usulan</th>
                                         <th>Lokasi</th>
                                         <th>OPD</th>
-                                        <th>SIPD</th>
                                         <th>Anggaran</th>
-                                        <?php
-                                            if($is_opd){
-                                        ?>
-                                        <th>Action</th>
-                                        <?php
-                                            }
-                                        ?>
+                                        <th>Status Pelaksanaan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,15 +59,8 @@
                                         <th>Usulan</th>
                                         <th>Lokasi</th>
                                         <th>OPD</th>
-                                        <th>SIPD</th>
                                         <th>Anggaran</th>
-                                        <?php
-                                            if($is_opd){
-                                        ?>
-                                        <th>Action</th>
-                                        <?php
-                                            }
-                                        ?>
+                                        <th>Status Pelaksanaan</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -104,39 +94,15 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 
-<!-- Modal Detail -->
-<div class="modal fade" id="modalDetail" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">TANGGING NOMENKLATUR <span class="text-sm text-info" id="span-id-usulan"></span></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span>&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <dl class="row mb-0">
-                <dt class="col-sm-3">Nama Program</dt><dd class="col-sm-9" id="d-program">-</dd>
-                <dt class="col-sm-3">Nama Kegiatan</dt><dd class="col-sm-9" id="d-kegiatan">-</dd>
-                <dt class="col-sm-3">Nama Sub Kegiatan</dt><dd class="col-sm-9" id="d-sub-kegiatan">-</dd>
-            </dl>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-        </div>
-        </div>
-    </div>
-</div>
-
 
 
 <?= $this->endSection(); ?>
 
 <?= $this->section('javascriptkhusus'); ?>
 <script>
-    const ahrefusulan = document.querySelector('.ahref-usulan');
+    const ahrefUsulanLaporan = document.querySelector('.ahref-usulan-laporan');
 
-    ahrefusulan.classList.add('active');
+    ahrefUsulanLaporan.classList.add('active');
 </script>
 <script>
     //Get the button
@@ -180,35 +146,19 @@ $(function () {
         { data: 'masalah',   defaultContent: '-' },
         { data: 'alamat',    defaultContent: '-' },
         { data: 'opd',       defaultContent: '-' },
-        { data: 'sipd',      defaultContent: '-', render: function (data) {
-            if (data === 'Verifikasi Perangkat Daerah' || data === 'Verifikasi Kecamatan' || data === 'Validasi Mitra Bappeda') {
-                return `<span class="badge badge-warning text-sm">${data}</span>`;
-            } else if (data === 'Pengajuan Usulan' || data === 'Dibatalkan') {
-                return `<span class="badge badge-danger text-sm">${data}</span>`;
-            }
-            return `<span class="badge badge-success text-sm">${data}</span>`;
-        }, className: 'text-center' },
         { data: 'anggaran', className:'text-right', render: (data,type) => {
-            if (type === 'display') return Number(data || 0).toLocaleString('id-ID');
-            return data;
-        } }
+                if (type === 'display') return Number(data || 0).toLocaleString('id-ID');
+                return data;
+            } 
+        },
+        { data: 'status_pelaksanaan',      defaultContent: '-', render: function (data) {
+            if (data == '1') {
+                return `<span class="badge badge-success text-sm">Sudah</span>`;
+            } else{
+                return `<span class="badge badge-danger text-sm">Belum</span>`;
+            }
+        }, className: 'text-center' }
     ];
-
-    // tambahkan kolom Action hanya untuk OPD
-    if (IS_OPD) {
-        columns.push({
-            data: null, orderable:false, searchable:false, className:'text-center',
-            render: r => `
-                <button type="button" class="btn btn-sm btn-info mb-1 btn-detail" 
-                        data-id="${r.id_usulan}" title="Detail">
-                    <i class="fa fa-eye"></i>
-                </button>
-                <a href="${BASE}usulan/show/${r.id_usulan}" 
-                    class="btn btn-sm btn-primary mb-1" title="Update Status">
-                    <i class="fa fa-edit"></i>
-                </a>`
-        });
-    }
 
     const table = $("#example1").DataTable({
         'oLanguage':
@@ -236,7 +186,7 @@ $(function () {
         processing: true,
         serverSide: false,
         ajax: {
-            url: "<?= site_url('usulan/datatable'); ?>",
+            url: "<?= site_url('usulan/datatable-laporan'); ?>",
             type: "POST",
             data: d => { d["<?= csrf_token() ?>"] = "<?= csrf_hash() ?>"; },
             dataSrc: json => {
@@ -249,41 +199,6 @@ $(function () {
 
     // contoh: reload saat ganti tahun
     $('#years').on('change', () => table.ajax.reload(null, false));
-
-    const valOrDash = v => (v === null || v === undefined || v === '') ? '-' : v;
-
-    $(document).on('click', '.btn-detail', function () {
-        const id = $(this).data('id');
-        const tokenName = "<?= csrf_token() ?>";
-        const tokenVal  = $('meta[name="<?= csrf_token() ?>"]').attr('content');
-
-        // placeholder loading
-        $('#d-id-usulan,#d-kecamatan,#d-masalah,#d-alamat,#d-opd,#d-sipd,#d-anggaran').text('Memuat...');
-        $('#modalDetail').modal('show');
-
-        $.ajax({
-            url: "<?= site_url('usulan/detail-json'); ?>",
-            type: "POST",
-            data: { [tokenName]: tokenVal, id_usulan: id },
-            success: (res) => {
-                if (res.csrf) $('meta[name="<?= csrf_token() ?>"]').attr('content', res.csrf);
-                if (!res || !res.data) {
-                    $('#modalDetail .modal-body').html('<div class="text-danger">Data detail tidak ditemukan.</div>');
-                    return;
-                }
-                const d = res.data;
-                $('#d-program').text(`: `+valOrDash(d.nama_program));
-                $('#d-kegiatan').text(`: `+valOrDash(d.nama_kegiatan));
-                $('#d-sub-kegiatan').text(`: `+valOrDash(d.nama_sub_kegiatan));
-                $('#span-id-usulan').text(`[ ${d.id_usulan} ]`);
-                // Tambah field lain/riwayat kalau perlu…
-            },
-            error: () => {
-                $('#modalDetail .modal-body').html('<div class="text-danger">Gagal memuat data.</div>');
-            }
-        });
-    });
-
 
 });
 </script>

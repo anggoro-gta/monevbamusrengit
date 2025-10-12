@@ -106,7 +106,15 @@
                                 <!-- <i class="fas fa-angle-left right"></i> -->
                             </p>
                         </a>
-                </li>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?= base_url('usulan/laporan'); ?>" class="nav-link ahref-usulan-laporan">
+                            <i class="nav-icon fas fa-file"></i>
+                            <p>
+                                Data laporan
+                            </p>
+                        </a>
+                    </li>
                 <?php endif; ?>
 
                 <?php if (in_groups('bidangadmin')) : ?>
