@@ -11,6 +11,42 @@ class tbusulanmusrenModel extends Model
     protected $useTimestamps = true;
     // protected $allowedFields = ['fr_id_visi', 'fr_id_misi', 'tujuanpd'];
 
+    public function gettotalusulanbytahun($tahun)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('tb_usulan_musren');
+        $builder->select('*');
+        $array = ['tahun' => $tahun];
+        $builder->where($array);
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+
+    public function gettotalusulanakomodirbytahun($tahun)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('tb_usulan_musren');
+        $builder->select('*');
+        $array = ['tahun' => $tahun, 'status' => 1];
+        $builder->where($array);
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+
+    public function gettotalusulantdkakomodirbytahun($tahun)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('tb_usulan_musren');
+        $builder->select('*');
+        $array = ['tahun' => $tahun, 'status' => 0];
+        $builder->where($array);
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+
     public function getusulanbyidbidang($idbidang)
     {
         $db = \Config\Database::connect();

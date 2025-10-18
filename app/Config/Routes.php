@@ -41,7 +41,10 @@ $routes->get('/home/updatepassword', 'Home::updatepassword');
 $routes->post('/home/saveyears', 'Home::saveyears');
 
 //REAL INDEX AFTER CHOOSE YEARS
-$routes->get('/home/realindex', 'Home::realindex');
+// $routes->get('/home/realindex', 'Home::realindex');
+
+//admin
+
 
 //musrenbang
 $routes->get('/entryusulan', 'Entryusulanmusren::index', ['filter' => 'role:bidangadmin']);

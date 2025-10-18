@@ -43,7 +43,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         <img src="<?= base_url(); ?>/assets/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">ba musren</span>
+        <span class="brand-text font-weight-light">Monitoring</span>
     </a>
 
     <!-- Sidebar -->
@@ -84,7 +84,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/home/realindex" class="nav-link ahref-home">
+                            <a href="/" class="nav-link ahref-home">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Home</p>
                             </a>
@@ -97,6 +97,71 @@
                         </li>
                     </ul>
                 </li>
+
+                <?php if (in_groups('admin')) : ?>
+                    <li class="nav-item limaster">
+                        <a href="#" class="nav-link ahrefmaster">
+                            <i class="nav-icon fas fa-database"></i>
+                            <p>
+                                Master
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/masterttd" class="nav-link ahrefmasterttd">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>users</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item liformbidangadmin">
+                        <a href="#" class="nav-link ahrefformbidangdamin">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Data
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>                       
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/entryusulan" class="nav-link ahrefbidangadmin">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Usulan</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-print"></i>
+                            <p>
+                                Cetak
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/printbamusrenbang" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Print BA</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/printlampiranba" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Print Lampiran BA</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li> -->
+                <?php endif; ?>
+
                 <?php if (in_groups(['useropd', 'userkec'])) : ?>
                     <li class="nav-item">
                         <a href="<?= base_url('usulan/data'); ?>" class="nav-link ahref-usulan">

@@ -2,23 +2,49 @@
 
 namespace App\Controllers;
 
+use App\Models\tbusulanmusrenModel;
 use Myth\Auth\Password;
 use App\Models\usersModel;
 
 class Home extends BaseController
 {
     protected $usersModel;
+    protected $tbusulanmusren;
 
     public function __construct()
     {
         $this->usersModel = new usersModel();
+        $this->tbusulanmusren = new tbusulanmusrenModel();
     }
 
     public function index()
     {
+        $counttotalusulan = '';
+        $countakomodir = '';
+        $counttdkakomodir = '';
+
+        if (isset($_SESSION['years'])) {
+            $tahun = $_SESSION['years'];
+
+            $totalusulan = $this->tbusulanmusren->gettotalusulanbytahun($tahun);
+            $counttotalusulan = count($totalusulan);
+
+            $akomodir = $this->tbusulanmusren->gettotalusulanakomodirbytahun($tahun);
+            $countakomodir = count($akomodir);
+
+            $tdkakomodir = $this->tbusulanmusren->gettotalusulantdkakomodirbytahun($tahun);
+            $counttdkakomodir = count($tdkakomodir);
+
+
+            // $tdkakomodir = method();
+        }
+
         $data = [
-                'tittle' => 'Home'
-            ];
+            'tittle' => 'Home',
+            'counttotalusulan' => $counttotalusulan,
+            'countakomodir' => $countakomodir,
+            'counttdkakomodir' => $counttdkakomodir
+        ];
 
         return view('pages/homenew', $data);
     }
@@ -27,34 +53,34 @@ class Home extends BaseController
     {
         if (!$this->request->isAJAX()) {
             return $this->response->setStatusCode(400)
-                ->setJSON(['ok'=>false,'msg'=>'Bad request']);
+                ->setJSON(['ok' => false, 'msg' => 'Bad request']);
         }
 
         $year = trim((string)$this->request->getPost('year'));
         if ($year === '' || !ctype_digit($year)) {
             return $this->response->setStatusCode(422)
-                ->setJSON(['ok'=>false,'msg'=>'Tahun tidak valid']);
+                ->setJSON(['ok' => false, 'msg' => 'Tahun tidak valid']);
         }
 
         session()->set('years', (int) $year);
 
-        $resp = ['ok'=>true, 'year'=>(int)$year];
+        $resp = ['ok' => true, 'year' => (int)$year];
         if (function_exists('csrf_hash')) $resp['csrf'] = csrf_hash(); // kalau CSRF rotate
         return $this->response->setJSON($resp);
     }
 
-    public function realindex()
-    {
-        if (isset($_SESSION['years'])) {
-            $data = [
-                'tittle' => 'Home'
-            ];
+    // public function realindex()
+    // {
+    //     if (isset($_SESSION['years'])) {
+    //         $data = [
+    //             'tittle' => 'Home'
+    //         ];
 
-            return view('pages/homenew', $data);
-        } else {
-            return redirect()->to('/');
-        }
-    }
+    //         return view('pages/homenew', $data);
+    //     } else {
+    //         return redirect()->to('/');
+    //     }
+    // }
 
     // public function register()
     // {
