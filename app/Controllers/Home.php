@@ -34,9 +34,6 @@ class Home extends BaseController
 
             $tdkakomodir = $this->tbusulanmusren->gettotalusulantdkakomodirbytahun($tahun);
             $counttdkakomodir = count($tdkakomodir);
-
-
-            // $tdkakomodir = method();
         }
 
         $data = [
@@ -47,6 +44,72 @@ class Home extends BaseController
         ];
 
         return view('pages/homenew', $data);
+    }
+
+    public function indexusers()
+    {
+        $datausers = $this->usersModel->findAll();
+
+        $data = [
+            'tittle' => 'Users',
+            'data_users' => $datausers
+        ];
+
+        return view('admin/indexusers', $data);
+    }
+
+    public function gantipasswordbyadmin()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+
+        $id = $this->request->getVar('iddata');        
+        $fullname = $this->request->getVar('fullname');        
+
+        $data = [
+            'tittle' => 'reset password users',
+            'validation' => \Config\Services::validation(),
+            'iddata' => $id,
+            'fullname' => $fullname
+        ];
+
+        return view('admin/gantipasswordbyadmin_view', $data);
+    }
+
+    public function updatepasswordbyid()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+
+        // validation data update
+        if (!$this->validate([
+            'password1' => [
+                'rules' => 'required|min_length[3]|matches[password2]',
+                'errors' => [
+                    'required' => 'harus ada isinya',
+                    'min_length' => 'telalu pendek tidak boleh kurang dari 3 karakter',
+                    'matches' => 'tidak cocok dengan password ke dua'
+                ]
+            ],
+            'password2' => [
+                'rules' => 'required|min_length[3]|matches[password1]',
+                'errors' => [
+                    'required' => 'harus ada isinya',
+                    'min_length' => 'telalu pendek tidak boleh kurang dari 3 karakter',
+                    'matches' => 'tidak cocok dengan password ke satu'
+                ]
+            ]
+        ])) {
+            return redirect()->to('gantipasswordbyadmin')->withInput();
+        }
+
+        $password = $this->request->getVar('password1');
+        $id = $this->request->getVar('iddata');
+
+        $hash = Password::hash($password);
+
+        $this->usersModel->updatepassbyid($hash, $id);
+        session()->setFlashdata('pesan', 'updatepass');
+
+        return redirect()->to('/indexusers');
     }
 
     public function saveyears()

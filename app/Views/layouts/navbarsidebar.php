@@ -109,7 +109,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/masterttd" class="nav-link ahrefmasterttd">
+                                <a href="/indexusers" class="nav-link ahrefmasterusers">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>users</p>
                                 </a>

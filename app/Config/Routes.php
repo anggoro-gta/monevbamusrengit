@@ -44,7 +44,9 @@ $routes->post('/home/saveyears', 'Home::saveyears');
 // $routes->get('/home/realindex', 'Home::realindex');
 
 //admin
-
+$routes->get('/indexusers', 'Home::indexusers', ['filter' => 'role:admin']);
+$routes->get('/gantipasswordbyadmin', 'Home::gantipasswordbyadmin', ['filter' => 'role:admin']);
+$routes->post('/home/updatepasswordbyadmin', 'Home::updatepasswordbyid', ['filter' => 'role:admin']);
 
 //musrenbang
 $routes->get('/entryusulan', 'Entryusulanmusren::index', ['filter' => 'role:bidangadmin']);
@@ -85,13 +87,13 @@ $routes->get('/printbamusrenbang', 'Cetakmusren::index', ['filter' => 'role:bida
 $routes->get('/printlampiranba', 'Cetakmusren::printlamiran', ['filter' => 'role:bidangadmin']);
 
 //usulan
-$routes->get('usulan/data', 'Usulan::index');     
+$routes->get('usulan/data', 'Usulan::index');
 $routes->post('usulan/datatable', 'Usulan::datatable');
 $routes->post('usulan/detail-json', 'Usulan::detailJson');
 $routes->get('usulan/show/(:num)', 'Usulan::show/$1');
 $routes->post('usulan/update-status', 'Usulan::updateStatus');
 $routes->post('usulan/foto-delete', 'Usulan::deleteFoto');
-$routes->get('usulan/laporan', 'Usulan::laporan');  
+$routes->get('usulan/laporan', 'Usulan::laporan');
 $routes->post('usulan/datatable-laporan', 'Usulan::datatableLaporan');
 $routes->get('usulan/export-pdf', 'Usulan::exportPdf');
 $routes->get('usulan/export-excel', 'Usulan::exportExcel');

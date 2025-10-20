@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Ganti Password</h1>
+                    <h1>Ganti Password by admin</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -30,7 +30,7 @@
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
                     <div class="card-header">
-                        <h3 class="card-title">passsword</h3>
+                        <h3 class="card-title">Reset Password</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -41,15 +41,20 @@
                         </button> -->
                         </div>
                     </div>
-                    <!-- /.card-header -->
-                    <form action="/home/updatepassword" method="post" enctype="multipart/form-data">
-                        <?= csrf_field(); ?>
 
+                    <!-- /.card-header -->
+                    <form action="/home/updatepasswordbyadmin" method="post" enctype="multipart/form-data">
+                        <?= csrf_field(); ?>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Password</label>
+                                        <label>fullname</label>
+                                        <input type="text" class="form-control" name="fullname" id="fullname" value="<?= (old('fullname')) ? old('fullname') : $fullname ?>" readonly>                                                                       
+                                    </div>
+                                    <div class="form-group">
+                                        <label>password</label>
+                                        <input type="hidden" class="form-control" name="iddata" id="iddata" value="<?= (old('iddata')) ? old('iddata') : $iddata ?>">
                                         <input type="password" class="form-control <?= ($validation->hasError('password1')) ? 'is-invalid' : ''; ?>" name="password1" id="password1" placeholder="Password" value="<?= (old('password1')) ? old('password1') : '' ?>" required>
                                         <div class="error invalid-feedback">
                                             <?= $validation->getError('password1'); ?>
@@ -72,25 +77,25 @@
                         </div>
                     </form>
                     <div class="card-footer">
-                        <a href="/"><button type="button" class="btn btn-secondary"><i class="fas fa-arrow-circle-left"></i> Kembali</button></a>
+                        <a href="/indexusers"><button type="button" class="btn btn-secondary"><i class="fas fa-arrow-circle-left"></i> Kembali</button></a>
                     </div>
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
-
-            <?php
-            } else {
-            ?>
-                <div class="alert alert-warning alert-dismissible">
-                    <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian!</h5>
-                    Anda belum memilih tahun anggaran. Data tidak akan tersinkron sebelum memilih tahun anggaran.
-                </div>
-            <?php
-            }
-            ?>
-
         </div>
         <!-- /.container-fluid -->
+
+    <?php
+            } else {
+    ?>
+        <div class="alert alert-warning alert-dismissible">
+            <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian!</h5>
+            Anda belum memilih tahun anggaran. Data tidak akan tersinkron sebelum memilih tahun anggaran.
+        </div>
+    <?php
+            }
+    ?>
+
     </section>
     <!-- /.content -->
 </div>
@@ -99,12 +104,12 @@
 
 <?= $this->section('javascriptkhusus'); ?>
 <script>
-    const lidashboard = document.querySelector('.li-dashboard');
-    const ahrefdashboard = document.querySelector('.ahref-dashboard');
-    const ahrefpassword = document.querySelector('.ahref-gantipassword');
+    const limaster = document.querySelector('.limaster');
+    const ahrefmaster = document.querySelector('.ahrefmaster');
+    const ahrefmasterusers = document.querySelector('.ahrefmasterusers');
 
-    lidashboard.classList.add("menu-open");
-    ahrefdashboard.classList.add('active');
-    ahrefpassword.classList.add("active");
+    limaster.classList.add("menu-open");
+    ahrefmaster.classList.add("active");
+    ahrefmasterusers.classList.add("active");
 </script>
 <?= $this->endSection(); ?>

@@ -23,6 +23,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+
             <?php
             if (isset($_SESSION['years'])) {
             ?>
@@ -38,47 +39,38 @@
                                     <thead>
                                         <tr>
                                             <th>no</th>
-                                            <th>Kecamatan</th>
-                                            <th>Total Usulan</th>
-                                            <th>Total Verifikasi</th>
-                                            <th>Verifikasi</th>
-                                            <th>TTD</th>
-                                            <th>Print</th>
+                                            <th>id</th>
+                                            <th>username</th>
+                                            <th>nama</th>
+                                            <th>aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $hitungkec = count($datakecamatan); ?>
-                                        <?php for ($i = 0; $i < $hitungkec; $i++) : ?>
+                                        <?php $hitungusers = count($data_users) ?>
+                                        <?php for ($i = 0; $i < $hitungusers; $i++) { ?>
                                             <tr>
                                                 <td><?= $i + 1; ?></td>
-                                                <td><?= $datakecamatan[$i]['nama_kecamatan']; ?></td>
-                                                <td><?= $datakecamatan[$i]['jumlah_usulan']; ?></td>
-                                                <td><?= $datakecamatan[$i]['jumlah_validasi']; ?></td>
+                                                <td><?= $data_users[$i]['id']; ?></td>
+                                                <td><?= $data_users[$i]['username']; ?></td>
+                                                <td><?= $data_users[$i]['fullname']; ?></td>
                                                 <td>
-                                                    <a href="/detailusulan/<?= $datakecamatan[$i]['id']; ?>"><button type="button" class="btn btn-block btn-info"><i class="fa fa-check"></i> verifikasi</button></a> </br>
-                                                    <a href="/detailprior/<?= $datakecamatan[$i]['id']; ?>"><button type="button" class="btn btn-block btn-info"><i class="fa fa-check"></i> prior</button></a>
-                                                </td>
-                                                <td>
-                                                    <a href="/detailttd/<?= $datakecamatan[$i]['id']; ?>"><button type="button" class="btn btn-block btn-info"><i class="fa fa-file"></i> ttd</button></a>
-                                                    </br><a href="/nomorttd/<?= $datakecamatan[$i]['id']; ?>"><button type="button" class="btn btn-block btn-info"><i class="fa fa-file"></i> nomor</button></a>
-                                                </td>
-                                                <td>
-                                                    <a href="/printbasidangkelompok/<?= $datakecamatan[$i]['id']; ?>" target="_blank"><button type="button" class="btn btn-block btn-secondary"><i class="fa fa-print"></i> BA</button></a> </br>
-                                                    <a href="/printlampiransdgkel/<?= $datakecamatan[$i]['id']; ?>" target="_blank"><button type="button" class="btn btn-block btn-secondary"><i class="fa fa-print"></i> Lampiran I</button></a> </br>
-                                                    <a href="/printlampiransdgkelx/<?= $datakecamatan[$i]['id']; ?>" target="_blank"><button type="button" class="btn btn-block btn-secondary"><i class="fa fa-print"></i> Lampiran II</button></a>
+                                                    <form action="/gantipasswordbyadmin" method="get" enctype="multipart/form-data">
+                                                        <?= csrf_field(); ?>
+                                                        <input type="hidden" class="form-control" name="iddata" id="iddata" value="<?= $data_users[$i]['id']; ?>">
+                                                        <input type="hidden" class="form-control" name="fullname" id="fullname" value="<?= $data_users[$i]['fullname']; ?>">
+                                                        <button type="submit" class="btn btn-secondary"><i class="fas fa-undo"></i> reset password</button>
+                                                    </form>
                                                 </td>
                                             </tr>
-                                        <?php endfor; ?>
+                                        <?php } ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>no</th>
-                                            <th>Kecamatan</th>
-                                            <th>Total Usulan</th>
-                                            <th>Total Verifikasi</th>
-                                            <th>Verifikasi</th>
-                                            <th>TTD</th>
-                                            <th>Print</th>
+                                            <th>id</th>
+                                            <th>username</th>
+                                            <th>nama</th>
+                                            <th>aksi</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -90,20 +82,20 @@
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
-
-            <?php
-            } else {
-            ?>
-                <div class="alert alert-warning alert-dismissible">
-                    <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian!</h5>
-                    Anda belum memilih tahun anggaran. Data tidak akan tersinkron sebelum memilih tahun anggaran.
-                </div>
-            <?php
-            }
-            ?>
-
         </div>
-        <!-- /.container-fluid -->
+
+    <?php
+            } else {
+    ?>
+        <div class="alert alert-warning alert-dismissible">
+            <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian!</h5>
+            Anda belum memilih tahun anggaran. Data tidak akan tersinkron sebelum memilih tahun anggaran.
+        </div>
+    <?php
+            }
+    ?>
+
+    <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>
@@ -161,13 +153,30 @@
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 
-    const liformbidangadmin = document.querySelector('.liformbidangadmin');
-    const ahrefformbidangdamin = document.querySelector('.ahrefformbidangdamin');
-    const ahrefbidangadmin = document.querySelector('.ahrefbidangadmin');
+    const limaster = document.querySelector('.limaster');
+    const ahrefmaster = document.querySelector('.ahrefmaster');
+    const ahrefmasterusers = document.querySelector('.ahrefmasterusers');
 
-    liformbidangadmin.classList.add("menu-open");
-    ahrefformbidangdamin.classList.add("active");
-    ahrefbidangadmin.classList.add("active");
+    limaster.classList.add("menu-open");
+    ahrefmaster.classList.add("active");
+    ahrefmasterusers.classList.add("active");
 </script>
+
+<?php if (session()->getFlashdata('pesan') == 'updatepass') : ?>
+    <script>
+        $(function() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Password berhasil dirubah'
+            });
+        });
+    </script>
+<?php endif; ?>
 
 <?= $this->endSection(); ?>

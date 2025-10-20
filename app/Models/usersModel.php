@@ -48,4 +48,19 @@ class usersModel extends Model
         $builder->where('kode_user', $kode_skpd);
         $builder->update($data);
     }
+
+    public function updatepassbyid($pass, $id)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $updatedate = date("Y-m-d H:i:s");
+        $db = \Config\Database::connect();
+        $builder = $db->table('users');
+        $data = [
+            'password_hash'  => $pass,
+            'updated_at' => $updatedate,
+        ];
+
+        $builder->where('id', $id);
+        $builder->update($data);
+    }
 }
