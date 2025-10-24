@@ -237,20 +237,6 @@
                                           class="img-thumbnail w-100"
                                           alt="preview"
                                           data-name="<?= esc($f['originale_name'] ?? $f['file_name']) ?>">
-                                      
-                                      <?php
-                                        if($row['verifikasi']==0){
-                                      ?>
-                                      <!-- tombol hapus -->
-                                      <button type="button"
-                                              class="btn btn-sm btn-danger position-absolute btn-del-old"
-                                              data-doc-id="<?= esc($f['id']) ?>"
-                                              style="right:4px; top:4px; padding:2px 6px;">
-                                        <i class="fa fa-trash"></i>
-                                      </button>
-                                      <?php
-                                        }
-                                      ?>
                                     </div>
                                   <?php endforeach; ?>
                                 <?php endif; ?>
