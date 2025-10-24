@@ -105,6 +105,9 @@
                     <!-- /.card -->
                 </div>
                 <div class="col-md-4">
+                  <?php 
+                    if($is_opd){
+                  ?>
                     <div class="card">
                         <form action="<?= site_url('usulan/update-status') ?>" method="post" enctype="multipart/form-data">
                             <?= csrf_field() ?>
@@ -199,6 +202,66 @@
                             ?>
                         </form>
                     </div>
+                  <?php
+                    }else{
+                      if(!empty($riwayat)){
+                  ?>
+                    <div class="card">
+                      <div class="card-body">
+                          <div class="form-group">
+                              <?php
+                                  $status = !empty($riwayat) ? $riwayat['status'] : '';
+                              ?>
+                              <label>Status Usulan</label>
+                              <br><span class="badge <?= $status=='1' ? 'badge-success' : 'badge-danger' ?> text-sm"><?= $status=='1' ? 'Sudah' : 'Belum' ?></span>
+                          </div>
+                          <hr>
+                          <!-- Wrap Upload: disembunyikan dulu -->
+                          <div id="wrap-foto" class="form-group" style="display:<?= $status=='1' ? '' : 'none'?>;">
+                              <label>Foto Pendukung</label>
+                              <?php
+                                if(count($foto)==0){
+                              ?>
+                              <br><span class="text-muted"><i>Tidak ada foto</i></span>
+                              <?php
+                                }
+                              ?>
+
+                              <!-- preview grid -->
+                              <div id="preview-grid" class="d-flex flex-wrap gap-2 ">
+                                <?php if (!empty($foto)): ?>
+                                  <?php foreach ($foto as $f): ?>
+                                    <div class="thumb position-relative mr-2 mb-2"
+                                        data-id="old-<?= esc($f['id']) ?>" style="width:100px;">
+                                      <img src="<?= base_url($f['url_name']) ?>"
+                                          class="img-thumbnail w-100"
+                                          alt="preview"
+                                          data-name="<?= esc($f['originale_name'] ?? $f['file_name']) ?>">
+                                      
+                                      <?php
+                                        if($row['verifikasi']==0){
+                                      ?>
+                                      <!-- tombol hapus -->
+                                      <button type="button"
+                                              class="btn btn-sm btn-danger position-absolute btn-del-old"
+                                              data-doc-id="<?= esc($f['id']) ?>"
+                                              style="right:4px; top:4px; padding:2px 6px;">
+                                        <i class="fa fa-trash"></i>
+                                      </button>
+                                      <?php
+                                        }
+                                      ?>
+                                    </div>
+                                  <?php endforeach; ?>
+                                <?php endif; ?>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  <?php
+                      }
+                    }
+                  ?>
 
                 </div>
                 <!-- /.col -->

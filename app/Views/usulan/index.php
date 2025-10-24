@@ -64,13 +64,7 @@
                                         <th>OPD</th>
                                         <th>SIPD</th>
                                         <th>Anggaran</th>
-                                        <?php
-                                            if($is_opd){
-                                        ?>
                                         <th>Action</th>
-                                        <?php
-                                            }
-                                        ?>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -200,12 +194,25 @@ $(function () {
             data: null, orderable:false, searchable:false, className:'text-center',
             render: r => `
                 <button type="button" class="btn btn-sm btn-info mb-1 btn-detail" 
-                        data-id="${r.id_usulan}" title="Detail">
+                        data-id="${r.id_usulan}" title="Taging Nomenklatur">
                     <i class="fa fa-eye"></i>
                 </button>
                 <a href="${BASE}usulan/show/${r.id_usulan}" 
                     class="btn btn-sm btn-primary mb-1" title="Update Status">
                     <i class="fa fa-edit"></i>
+                </a>`
+        });
+    }else{
+        columns.push({
+            data: null, orderable:false, searchable:false, className:'text-center',
+            render: r => `
+                <button type="button" class="btn btn-sm btn-info mb-1 btn-detail" 
+                        data-id="${r.id_usulan}" title="Taging Nomenklatur">
+                    <i class="fa fa-eye"></i>
+                </button>
+                <a href="${BASE}usulan/show/${r.id_usulan}" 
+                    class="btn btn-sm btn-primary mb-1" title="Detail">
+                    <i class="fa fa-binoculars"></i>
                 </a>`
         });
     }

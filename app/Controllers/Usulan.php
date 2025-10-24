@@ -121,11 +121,17 @@ class Usulan extends BaseController
                     ->get()->getResultArray();   // <-- penting: ResultArray
         }
 
+        $is_opd = true;
+        if (in_array('userkec', user()->getRoles(), true)) {
+            $is_opd = false;
+        }
+
         $data = [
             'tittle'  => 'Detail Usulan',
             'row'     => $row,
             'riwayat' => $riwayat,
-            'foto'    => $foto
+            'foto'    => $foto,
+            'is_opd'  => $is_opd
         ];
 
         return view('usulan/show', $data);
