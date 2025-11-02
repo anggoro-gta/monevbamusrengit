@@ -22,6 +22,7 @@ class Home extends BaseController
         $counttotalusulan = '';
         $countakomodir = '';
         $counttdkakomodir = '';
+        $countblmproses = '';
 
         if (isset($_SESSION['years'])) {
             $tahun = $_SESSION['years'];
@@ -34,13 +35,17 @@ class Home extends BaseController
 
             $tdkakomodir = $this->tbusulanmusren->gettotalusulantdkakomodirbytahun($tahun);
             $counttdkakomodir = count($tdkakomodir);
+
+            $blmproses = $this->tbusulanmusren->gettotalusulanblmprosesbytahun($tahun);
+            $countblmproses = count($blmproses);
         }
 
         $data = [
             'tittle' => 'Home',
             'counttotalusulan' => $counttotalusulan,
             'countakomodir' => $countakomodir,
-            'counttdkakomodir' => $counttdkakomodir
+            'counttdkakomodir' => $counttdkakomodir,
+            'countblmproses' => $countblmproses
         ];
 
         return view('pages/homenew', $data);

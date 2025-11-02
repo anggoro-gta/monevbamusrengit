@@ -47,6 +47,18 @@ class tbusulanmusrenModel extends Model
         return $query->getResultArray();
     }
 
+    public function gettotalusulanblmprosesbytahun($tahun)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('tb_usulan_musren');
+        $builder->select('*');
+        $array = ['tahun' => $tahun, 'status' => 99];
+        $builder->where($array);
+        $query = $builder->get();
+
+        return $query->getResultArray();
+    }
+
     public function getusulanbyidbidang($idbidang)
     {
         $db = \Config\Database::connect();
