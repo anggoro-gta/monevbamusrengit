@@ -49,28 +49,55 @@
                                     <?php $hitungusul = count($data_usulan); ?>
                                     <?php for ($i = 0; $i < $hitungusul; $i++) : ?>
                                         <?php if ($data_usulan[$i]['prior'] == 1): ?>
-                                            <tr>
-                                                <td><?= $i + 1; ?></td>
-                                                <td><?= $data_usulan[$i]['id_usulan']; ?></td>
-                                                <td><?= $data_usulan[$i]['kecamatan']; ?></td>
-                                                <td><?= $data_usulan[$i]['kamus_usulan']; ?></td>
-                                                <td><?= $data_usulan[$i]['masalah']; ?></td>
-                                                <td><?= $data_usulan[$i]['alamat']; ?></td>
-                                                <td><?= $data_usulan[$i]['opd_tujuan']; ?></td>
-                                                <td><?= $data_usulan[$i]['perkiraan_anggaran']; ?></td>
-                                                <td><?= $data_usulan[$i]['volume']; ?></td>
-                                                <?php if ($data_usulan[$i]['status'] == 0) { ?>
-                                                    <td>Tidak Diakomodir</td>
-                                                <?php } else if ($data_usulan[$i]['status'] == 1) { ?>
-                                                    <td>Diakomodir</td>
-                                                <?php } else if ($data_usulan[$i]['status'] == 99) { ?>
-                                                    <td>Belum Diproses</td>
-                                                <?php } ?>
-                                                <td><?= $data_usulan[$i]['catatan']; ?></td>
-                                                <td>
-                                                    <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Verifikasi</button>
-                                                </td>
-                                            </tr>
+
+                                            <?php if ($data_usulan[$i]['status'] == 99) { ?>
+                                                <tr>
+                                                    <td bgcolor="#f95757"><?= $i + 1; ?></td>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['id_usulan']; ?></td>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['kecamatan']; ?></td>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['kamus_usulan']; ?></td>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['masalah']; ?></td>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['alamat']; ?></td>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['opd_tujuan']; ?></td>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['perkiraan_anggaran']; ?></td>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['volume']; ?></td>
+                                                    <?php if ($data_usulan[$i]['status'] == 0) { ?>
+                                                        <td bgcolor="#f95757">Tidak Diakomodir</td>
+                                                    <?php } else if ($data_usulan[$i]['status'] == 1) { ?>
+                                                        <td bgcolor="#f95757">Diakomodir</td>
+                                                    <?php } else if ($data_usulan[$i]['status'] == 99) { ?>
+                                                        <td bgcolor="#f95757">Belum Diproses</td>
+                                                    <?php } ?>
+                                                    <td bgcolor="#f95757"><?= $data_usulan[$i]['catatan']; ?></td>
+                                                    <td bgcolor="#f95757">
+                                                        <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Verifikasi</button>
+                                                    </td>
+                                                </tr>
+                                            <?php } else { ?>
+                                                <tr>
+                                                    <td bgcolor="#17f494"><?= $i + 1; ?></td>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['id_usulan']; ?></td>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['kecamatan']; ?></td>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['kamus_usulan']; ?></td>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['masalah']; ?></td>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['alamat']; ?></td>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['opd_tujuan']; ?></td>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['perkiraan_anggaran']; ?></td>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['volume']; ?></td>
+                                                    <?php if ($data_usulan[$i]['status'] == 0) { ?>
+                                                        <td bgcolor="#17f494">Tidak Diakomodir</td>
+                                                    <?php } else if ($data_usulan[$i]['status'] == 1) { ?>
+                                                        <td bgcolor="#17f494">Diakomodir</td>
+                                                    <?php } else if ($data_usulan[$i]['status'] == 99) { ?>
+                                                        <td bgcolor="#17f494">Belum Diproses</td>
+                                                    <?php } ?>
+                                                    <td bgcolor="#17f494"><?= $data_usulan[$i]['catatan']; ?></td>
+                                                    <td bgcolor="#17f494">
+                                                        <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Verifikasi</button>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+
                                         <?php endif; ?>
                                     <?php endfor; ?>
                                 </tbody>
@@ -129,7 +156,7 @@
                     </div> -->
                     <div class="form-group">
                         <label>Perkiraan Anggaran</label>
-                        <input type="number" class="form-control" name="perkiraan_anggaran" id="perkiraan_anggaran" placeholder="Perkiraan Anggaran" value="" required>
+                        <input type="text" class="form-control nominal" name="perkiraan_anggaran" id="perkiraan_anggaran" placeholder="Perkiraan Anggaran" value="" required>
                     </div>
                     <div class="form-group">
                         <label>Volume</label>
@@ -248,6 +275,45 @@
 
         $('#modal-edit').modal('show');
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.nominal').on('keyup', function() {
+            var angka = $(this).val();
+            if (angka === '' || angka === '0' || angka === '0.00') {
+                // $(this).val('0');
+                return;
+            }
+            $(this).val(formatRibuan(angka));
+        });
+
+        function replaceAngka(angka) {
+            let number_string = angka.replace(/[^,\d]/g, '').toString();
+            // kalau isinya cuma nol semua, kembalikan '0'
+            if (/^0+$/.test(number_string)) {
+                return '0';
+            }
+            return number_string;
+        }
+
+        function formatRibuan(angka) {
+            // var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            var number_string = replaceAngka(angka)
+            split = number_string.split(','),
+                sisa = split[0].length % 3,
+                angka_hasil = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                angka_hasil += separator + ribuan.join('.');
+            }
+
+            angka_hasil = split[1] != undefined ? angka_hasil + ',' + split[1] : angka_hasil;
+            return angka_hasil;
+        }
+    })
 </script>
 
 <script>

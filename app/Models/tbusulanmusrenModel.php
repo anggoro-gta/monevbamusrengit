@@ -79,7 +79,7 @@ class tbusulanmusrenModel extends Model
         $builder->select("*");
         $array = ['id_bidang' => $idbidang, 'id_kecamatan' => $idkecamatan];
         $builder->where($array);
-        $builder->orderBy('prior', 'DESC');
+        $builder->orderBy('status', 'ASC');
         $query = $builder->get();
 
         return $query->getResultArray();

@@ -458,6 +458,7 @@ class Entryusulanmusren extends BaseController
         $status = $_POST['status_data'];
         $catatan = $_POST['catatan_data'];
         $perkiraan_anggaran = $_POST['perkiraan_anggaran_data'];
+        $perkiraan_anggaran_parse = !empty($perkiraan_anggaran) ? $this->parseNumber($perkiraan_anggaran) : null;
         $volume = $_POST['volume_data'];
 
         if ($catatan == "") {
@@ -470,7 +471,7 @@ class Entryusulanmusren extends BaseController
 
             if ($status == 99) {
                 $count_validasi = 0;
-                $this->tbusulanmusren->updatestatususulan($id, $status, $catatan, $count_validasi, $perkiraan_anggaran, $volume);
+                $this->tbusulanmusren->updatestatususulan($id, $status, $catatan, $count_validasi, $perkiraan_anggaran_parse, $volume);
 
                 $data = [
                     'status_update' => "berhasil"
@@ -478,7 +479,7 @@ class Entryusulanmusren extends BaseController
 
                 echo json_encode($data);
             } else {
-                $this->tbusulanmusren->updatestatususulan($id, $status, $catatan, $count_validasi, $perkiraan_anggaran, $volume);
+                $this->tbusulanmusren->updatestatususulan($id, $status, $catatan, $count_validasi, $perkiraan_anggaran_parse, $volume);
 
                 $data = [
                     'status_update' => "berhasil"
@@ -530,7 +531,7 @@ class Entryusulanmusren extends BaseController
         $array_datamusren[0]['catatan'] = $datamusren[0]['catatan'];
         $array_datamusren[0]['count_validasi'] = $datamusren[0]['count_validasi'];
         $array_datamusren[0]['prior'] = $datamusren[0]['prior'];
-        $array_datamusren[0]['perkiraan_anggaran'] = number_format($datamusren[0]['perkiraan_anggaran'], 0, ",", "");
+        $array_datamusren[0]['perkiraan_anggaran'] = number_format($datamusren[0]['perkiraan_anggaran'], 0, ",", ".");
         $array_datamusren[0]['volume'] = $datamusren[0]['volume'];
 
         $data = [
@@ -742,4 +743,15 @@ class Entryusulanmusren extends BaseController
     }
 
     // END DISINI SEMUA FUNCTION UNTUK PRINT BERITA ACARA
+
+    private function parseNumber($value)
+    {
+        // Hapus semua titik (pemisah ribuan)
+        $value = str_replace('.', '', $value);
+
+        // Ubah koma menjadi titik (untuk desimal)
+        $value = str_replace(',', '.', $value);
+
+        return $value;
+    }
 }

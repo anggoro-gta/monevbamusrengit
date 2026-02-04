@@ -9,7 +9,7 @@ use \Dompdf\Dompdf;
 class Usulan extends BaseController
 {
     protected $usulanModel;
-    
+
     protected $dompdf;
 
     public function __construct()
@@ -29,28 +29,25 @@ class Usulan extends BaseController
             'tittle' => 'Data Usulan',
             'is_opd' => $is_opd
         ];
-        
+
         return view('usulan/index', $data);
     }
 
     public function datatable()
     {
         if (!$this->request->isAJAX()) {
-            return $this->response->setStatusCode(400)->setJSON(['data'=>[]]);
+            return $this->response->setStatusCode(400)->setJSON(['data' => []]);
         }
 
         $kode_user = user()->kode_user;
         $tahun = session('years');           // pastikan sudah dipilih
         if (!$tahun) {
-            return $this->response->setJSON(['data'=>[]]);
+            return $this->response->setJSON(['data' => []]);
         }
 
-        if (in_array('useropd', user()->getRoles(), true)) 
-        {
+        if (in_array('useropd', user()->getRoles(), true)) {
             $rows = $this->usulanModel->getusulanbyopd($kode_user, $tahun);
-        }
-        else if(in_array('userkec', user()->getRoles(), true))
-        {
+        } else if (in_array('userkec', user()->getRoles(), true)) {
             $rows = $this->usulanModel->getusulanbykec($kode_user, $tahun);
         }
 
@@ -100,7 +97,8 @@ class Usulan extends BaseController
         }
     }
 
-    public function show($id_usulan){
+    public function show($id_usulan)
+    {
 
         $db = \Config\Database::connect();
         $row = $db->table('tb_usulan_musren u')
@@ -115,10 +113,10 @@ class Usulan extends BaseController
         if (!empty($riwayat)) {
             // AMBIL SEMUA FOTO TERKAIT RIWAYAT INI
             $foto = $db->table('dokumen')
-                    ->select('id, file_name, originale_name, url_name')
-                    ->where('table_name', 'tb_riwayat_usulan')
-                    ->where('table_id', $riwayat['id'])
-                    ->get()->getResultArray();   // <-- penting: ResultArray
+                ->select('id, file_name, originale_name, url_name')
+                ->where('table_name', 'tb_riwayat_usulan')
+                ->where('table_id', $riwayat['id'])
+                ->get()->getResultArray();   // <-- penting: ResultArray
         }
 
         $is_opd = true;
@@ -194,9 +192,9 @@ class Usulan extends BaseController
 
                         // Hapus baris dokumen di DB
                         $db->table('dokumen')
-                        ->where('table_name', 'tb_riwayat_usulan')
-                        ->where('table_id', $riwayatId)
-                        ->delete();
+                            ->where('table_name', 'tb_riwayat_usulan')
+                            ->where('table_id', $riwayatId)
+                            ->delete();
                     }
                 }
             }
@@ -235,7 +233,7 @@ class Usulan extends BaseController
                         // validasi mime/ekstensi sederhana
                         $ext  = strtolower($file->getClientExtension() ?? '');
                         $mime = strtolower($file->getMimeType() ?? '');
-                        if (!in_array($ext, ['jpg','jpeg','png','gif','webp'])) continue;
+                        if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) continue;
                         if (strpos($mime, 'image/') !== 0) continue;
 
                         $newName   = $file->getRandomName();
@@ -272,7 +270,6 @@ class Usulan extends BaseController
             $db->transCommit();
 
             return redirect()->back()->with('success', 'Update status berhasil');
-
         } catch (\Throwable $e) {
             $db->transRollback();
             // log_message('error', 'updateStatus error: {msg}', ['msg' => $e->getMessage()]);
@@ -301,7 +298,9 @@ class Usulan extends BaseController
 
         // hapus file fisik
         $abs = FCPATH . $doc['url_name']; // contoh: public/usulan/xxx.jpg
-        if (is_file($abs)) { @unlink($abs); }
+        if (is_file($abs)) {
+            @unlink($abs);
+        }
 
         // hapus row
         $db->table('dokumen')->where('id', $docId)->delete();
@@ -319,31 +318,28 @@ class Usulan extends BaseController
             'tittle' => 'Laporan Usulan',
             'is_opd' => $is_opd
         ];
-        
+
         return view('usulan/laporan', $data);
     }
 
     public function datatableLaporan()
     {
         if (!$this->request->isAJAX()) {
-            return $this->response->setStatusCode(400)->setJSON(['data'=>[]]);
+            return $this->response->setStatusCode(400)->setJSON(['data' => []]);
         }
 
         $kode_user = user()->kode_user;
         $tahun = session('years');           // pastikan sudah dipilih
         if (!$tahun) {
-            return $this->response->setJSON(['data'=>[]]);
+            return $this->response->setJSON(['data' => []]);
         }
 
-        if (in_array('useropd', user()->getRoles(), true)) 
-        {
+        if (in_array('useropd', user()->getRoles(), true)) {
             $rows = $this->usulanModel->getusulanbyopd($kode_user, $tahun);
-        }
-        else if(in_array('userkec', user()->getRoles(), true))
-        {
+        } else if (in_array('userkec', user()->getRoles(), true)) {
             $rows = $this->usulanModel->getusulanbykec($kode_user, $tahun);
         }
-        
+
 
         // Bentuk array untuk DataTables (paling gampang: array of arrays)
         $data = [];
@@ -375,12 +371,9 @@ class Usulan extends BaseController
 
         $tahun = session('years');
 
-        if (in_array('useropd', user()->getRoles(), true)) 
-        {
+        if (in_array('useropd', user()->getRoles(), true)) {
             $data_usulan = $this->usulanModel->getusulanbyopd($kode_user, $tahun);
-        }
-        else if(in_array('userkec', user()->getRoles(), true))
-        {
+        } else if (in_array('userkec', user()->getRoles(), true)) {
             $data_usulan = $this->usulanModel->getusulanbykec($kode_user, $tahun);
         }
 
@@ -416,11 +409,11 @@ class Usulan extends BaseController
                 $data_usulan = [];
             }
 
-            $filename = 'Laporan Usulan_' . preg_replace('/[^\w\s\-_]/u','', $instansi) . '.xls';
+            $filename = 'Laporan Usulan_' . preg_replace('/[^\w\s\-_]/u', '', $instansi) . '.xls';
 
             // Headers untuk HTML->XLS
             header('Content-Type: application/vnd.ms-excel; charset=UTF-8');
-            header('Content-Disposition: attachment; filename="'.$filename.'"');
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
             header('Cache-Control: max-age=0');
             header('Pragma: public');
 
@@ -430,11 +423,11 @@ class Usulan extends BaseController
             $fmtAsText   = "mso-number-format:'\\@'";
 
             // Judul
-            $judul = 'LAPORAN USULAN MUSRENBANG TAHUN '.$tahun.'<br>'.
-                    htmlspecialchars(mb_strtoupper($instansi, 'UTF-8'));
+            $judul = 'LAPORAN USULAN MUSRENBANG TAHUN ' . $tahun . '<br>' .
+                htmlspecialchars(mb_strtoupper($instansi, 'UTF-8'));
 
             echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
-            echo '<h4 style="text-align:center">'.$judul.'</h4>';
+            echo '<h4 style="text-align:center">' . $judul . '</h4>';
 
             // Sedikit CSS agar wrap & rapi
             echo '<style>
@@ -468,14 +461,14 @@ class Usulan extends BaseController
                     : 'color:red;';
 
                 echo '<tr>';
-                echo '<td>'.($no++).'</td>';
-                echo '<td style="'.$fmtAsText.'">'.htmlspecialchars((string)$item['id_usulan']).'</td>';
-                echo '<td class="wrap">'.htmlspecialchars($item['kecamatan']).'</td>';
-                echo '<td class="wrap">'.htmlspecialchars($item['masalah']).'</td>';
-                echo '<td class="wrap">'.htmlspecialchars($item['alamat']).'</td>';
-                echo '<td class="wrap">'.htmlspecialchars($item['opd_tujuan']).'</td>';
-                echo '<td style="'.$fmtRupiah.'">'.$anggaran.'</td>';
-                echo '<td style="'.$statusStyle.' text-align: center">'.htmlspecialchars($statusTeks).'</td>';
+                echo '<td>' . ($no++) . '</td>';
+                echo '<td style="' . $fmtAsText . '">' . htmlspecialchars((string)$item['id_usulan']) . '</td>';
+                echo '<td class="wrap">' . htmlspecialchars($item['kecamatan']) . '</td>';
+                echo '<td class="wrap">' . htmlspecialchars($item['masalah']) . '</td>';
+                echo '<td class="wrap">' . htmlspecialchars($item['alamat']) . '</td>';
+                echo '<td class="wrap">' . htmlspecialchars($item['opd_tujuan']) . '</td>';
+                echo '<td style="' . $fmtRupiah . '">' . $anggaran . '</td>';
+                echo '<td style="' . $statusStyle . ' text-align: center">' . htmlspecialchars($statusTeks) . '</td>';
                 echo '</tr>';
             }
 
@@ -488,7 +481,4 @@ class Usulan extends BaseController
             echo $th->getMessage();
         }
     }
-
-
-
 }

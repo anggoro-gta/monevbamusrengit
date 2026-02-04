@@ -45,23 +45,43 @@
                                 <tbody>
                                     <?php $hitungusul = count($data_usulan); ?>
                                     <?php for ($i = 0; $i < $hitungusul; $i++) : ?>
-                                        <tr>
-                                            <td><?= $i + 1; ?></td>
-                                            <td><?= $data_usulan[$i]['id_usulan']; ?></td>
-                                            <td><?= $data_usulan[$i]['kecamatan']; ?></td>
-                                            <td><?= $data_usulan[$i]['kamus_usulan']; ?></td>
-                                            <td><?= $data_usulan[$i]['masalah']; ?></td>
-                                            <td><?= $data_usulan[$i]['alamat']; ?></td>
-                                            <td><?= $data_usulan[$i]['opd_tujuan']; ?></td>
-                                            <?php if ($data_usulan[$i]['prior'] == 0) { ?>
-                                                <td>Bukan Prioritas</td>
-                                            <?php } else if ($data_usulan[$i]['prior'] == 1) { ?>
-                                                <td>Prioritas</td>
-                                            <?php } ?>
-                                            <td>
-                                                <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Prior</button>
-                                            </td>
-                                        </tr>
+                                        <?php if ($data_usulan[$i]['prior'] == 1) { ?>
+                                            <tr>
+                                                <td bgcolor="#17f494"><?= $i + 1; ?></td>
+                                                <td bgcolor="#17f494"><?= $data_usulan[$i]['id_usulan']; ?></td>
+                                                <td bgcolor="#17f494"><?= $data_usulan[$i]['kecamatan']; ?></td>
+                                                <td bgcolor="#17f494"><?= $data_usulan[$i]['kamus_usulan']; ?></td>
+                                                <td bgcolor="#17f494"><?= $data_usulan[$i]['masalah']; ?></td>
+                                                <td bgcolor="#17f494"><?= $data_usulan[$i]['alamat']; ?></td>
+                                                <td bgcolor="#17f494"><?= $data_usulan[$i]['opd_tujuan']; ?></td>
+                                                <?php if ($data_usulan[$i]['prior'] == 0) { ?>
+                                                    <td bgcolor="#17f494">Bukan Prioritas</td>
+                                                <?php } else if ($data_usulan[$i]['prior'] == 1) { ?>
+                                                    <td bgcolor="#17f494">Prioritas</td>
+                                                <?php } ?>
+                                                <td bgcolor="#17f494">
+                                                    <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Prior</button>
+                                                </td>
+                                            </tr>
+                                        <?php } else { ?>
+                                            <tr>
+                                                <td bgcolor="#f95757"><?= $i + 1; ?></td>
+                                                <td bgcolor="#f95757"><?= $data_usulan[$i]['id_usulan']; ?></td>
+                                                <td bgcolor="#f95757"><?= $data_usulan[$i]['kecamatan']; ?></td>
+                                                <td bgcolor="#f95757"><?= $data_usulan[$i]['kamus_usulan']; ?></td>
+                                                <td bgcolor="#f95757"><?= $data_usulan[$i]['masalah']; ?></td>
+                                                <td bgcolor="#f95757"><?= $data_usulan[$i]['alamat']; ?></td>
+                                                <td bgcolor="#f95757"><?= $data_usulan[$i]['opd_tujuan']; ?></td>
+                                                <?php if ($data_usulan[$i]['prior'] == 0) { ?>
+                                                    <td bgcolor="#f95757">Bukan Prioritas</td>
+                                                <?php } else if ($data_usulan[$i]['prior'] == 1) { ?>
+                                                    <td bgcolor="#f95757">Prioritas</td>
+                                                <?php } ?>
+                                                <td bgcolor="#f95757">
+                                                    <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Prior</button>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                     <?php endfor; ?>
                                 </tbody>
                                 <tfoot>
