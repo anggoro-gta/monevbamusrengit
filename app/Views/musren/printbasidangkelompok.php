@@ -97,12 +97,12 @@
     <p style="margin-top:6pt; margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">BERITA ACARA</span></strong></p>
     <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">HASIL KESEPAKATAN PEMBAHASAN USULAN HASIL MUSRENBANG</span></strong></p>
     <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">DALAM SIDANG KELOMPOK MUSRENBANG RKPD</span></strong></p>
-    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">KABUPATEN KEDIRI TAHUN 2026</span></strong></p>
+    <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">KABUPATEN KEDIRI TAHUN 2027</span></strong></p>
 
     <?php if ($count_datattd == 1) { ?>
-        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">NOMOR : 000.7/</span></strong><strong><span style="font-family:'Times New Roman';"><?= $datattd[0]['nomor']; ?></span></strong><strong><span style="font-family:'Times New Roman';">/418.54/2025</span></strong></p>
+        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">NOMOR : 000.7/</span></strong><strong><span style="font-family:'Times New Roman';"><?= $datattd[0]['nomor']; ?></span></strong><strong><span style="font-family:'Times New Roman';">/418.54/2026</span></strong></p>
     <?php } else if ($count_datattd == 0) { ?>
-        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">NOMOR : 000.7/</span></strong><strong><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family:'Times New Roman';">/418.54/2025</span></strong></p>
+        <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">NOMOR : 000.7/</span></strong><strong><span style="font-family:'Times New Roman';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="font-family:'Times New Roman';">/418.54/2026</span></strong></p>
     <?php } ?>
 
     <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
@@ -117,7 +117,7 @@
     <?php } ?>
 
     <p style="margin-bottom:0pt; text-align:center; line-height:normal; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
-    <p style="margin-bottom:0pt; text-indent:35.45pt; text-align:justify; line-height:115%; font-size:12pt;"><span style="font-family:'Times New Roman';">Pada&nbsp;</span><strong><span style="font-family:'Times New Roman';">Selasa</span></strong><span style="font-family:'Times New Roman';">&nbsp;tanggal&nbsp;</span><strong><span style="font-family:'Times New Roman';">Sebelas</span></strong><span style="font-family:'Times New Roman';">&nbsp;bulan&nbsp;</span><strong><span style="font-family:'Times New Roman';">Maret</span></strong><span style="font-family:'Times New Roman';">&nbsp;tahun&nbsp;</span><strong><span style="font-family:'Times New Roman';">Dua Ribu Dua Puluh Lima</span></strong><span style="font-family:'Times New Roman';">&nbsp;bertempat di Kediri, telah dilaksanakan pembahasan terhadap usulan hasil musrenbang dalam sidang kelompok Musrenbang RKPD Kabupaten Kediri tahun Dua Ribu Dua Puluh Enam sebagai berikut:</span></p>
+    <p style="margin-bottom:0pt; text-indent:35.45pt; text-align:justify; line-height:115%; font-size:12pt;"><span style="font-family:'Times New Roman';">Pada&nbsp;</span><strong><span style="font-family:'Times New Roman';">Rabu</span></strong><span style="font-family:'Times New Roman';">&nbsp;tanggal&nbsp;</span><strong><span style="font-family:'Times New Roman';">Sebelas</span></strong><span style="font-family:'Times New Roman';">&nbsp;bulan&nbsp;</span><strong><span style="font-family:'Times New Roman';">Maret</span></strong><span style="font-family:'Times New Roman';">&nbsp;tahun&nbsp;</span><strong><span style="font-family:'Times New Roman';">Dua Ribu Dua Puluh Enam</span></strong><span style="font-family:'Times New Roman';">&nbsp;bertempat di Kediri, telah dilaksanakan pembahasan terhadap usulan hasil musrenbang dalam sidang kelompok Musrenbang RKPD Kabupaten Kediri tahun Dua Ribu Dua Puluh Tujuh sebagai berikut:</span></p>
     <p style="margin-bottom:0pt; text-indent:35.45pt; text-align:justify; line-height:115%; font-size:12pt;"><span style="font-family:'Times New Roman';">&nbsp;</span></p>
     <p style="margin-bottom:0pt; text-indent:35.45pt; text-align:center; line-height:115%; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">MENYEPAKATI</span></strong></p>
     <p style="margin-bottom:0pt; text-indent:35.45pt; text-align:center; line-height:115%; font-size:12pt;"><strong><span style="font-family:'Times New Roman';">&nbsp;</span></strong></p>
@@ -131,7 +131,7 @@
                     <p style="margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt;"><span style="font-family:'Times New Roman';">:</span></p>
                 </td>
                 <td style="width:331pt; padding:0pt 5.4pt; vertical-align:top;">
-                    <p style="margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt;"><span style="font-family:'Times New Roman';">Usulan hasil Musrenbang yang diakomodir dan tidak diakomodir dalam rancangan RKPD Kabupaten Kediri tahun 2026 adalah sebagaimana tercantum dalam lampiran I dan II berita acara ini.</span></p>
+                    <p style="margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt;"><span style="font-family:'Times New Roman';">Usulan hasil Musrenbang yang diakomodir dan tidak diakomodir dalam rancangan RKPD Kabupaten Kediri tahun 2027 adalah sebagaimana tercantum dalam lampiran I dan II berita acara ini.</span></p>
                 </td>
             </tr>
             <tr>
@@ -154,8 +154,8 @@
                 </td>
                 <td style="width:331pt; padding:0pt 5.4pt; vertical-align:top;">
                     <ol style="margin:0pt; padding-left:0pt; list-style-type:lower-latin;">
-                        <li class="ListParagraph" style="margin-left:16.63pt; margin-bottom:0pt; text-align:justify; line-height:115%; padding-left:7.92pt; font-family:'Times New Roman'; font-size:12pt;">Sebagai bahan penyusunan rancangan akhir RKPD Kabupaten Kediri Tahun 2026;</li>
-                        <li class="ListParagraph" style="margin-left:17.3pt; margin-bottom:0pt; text-align:justify; line-height:115%; padding-left:7.25pt; font-family:'Times New Roman'; font-size:12pt;">Sebagai bahan masukkan dalam penyusunan rancangan akhir renja perangkat daerah Kabupaten Kediri Tahun 2026;</li>
+                        <li class="ListParagraph" style="margin-left:16.63pt; margin-bottom:0pt; text-align:justify; line-height:115%; padding-left:7.92pt; font-family:'Times New Roman'; font-size:12pt;">Sebagai bahan penyusunan rancangan akhir RKPD Kabupaten Kediri Tahun 2027;</li>
+                        <li class="ListParagraph" style="margin-left:17.3pt; margin-bottom:0pt; text-align:justify; line-height:115%; padding-left:7.25pt; font-family:'Times New Roman'; font-size:12pt;">Sebagai bahan masukkan dalam penyusunan rancangan akhir renja perangkat daerah Kabupaten Kediri Tahun 2027;</li>
                         <li class="ListParagraph" style="margin-left:16.63pt; margin-bottom:0pt; text-align:justify; line-height:115%; padding-left:7.92pt; font-family:'Times New Roman'; font-size:12pt;">Sebagai bahan Tim Anggaran Pemerintah Daerah (TAPD) dalam mempertimbangkan kapasitas keuangan daerah berdasarkan Prioritas Pembangunan.</li>
                     </ol>
                 </td>

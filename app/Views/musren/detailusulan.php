@@ -166,6 +166,10 @@
                         <label>Catatan</label>
                         <input type="text" class="form-control" name="catatan" id="catatan" placeholder="Catatan" value="" required>
                     </div>
+                    <div class="form-group">
+                        <label>SIPD Mitra Bappeda</label>
+                        <textarea class="form-control" name="mitra_bidang" id="mitra_bidang" disabled></textarea>                        
+                    </div>
                     <input type="hidden" name="id_mus" id="id_mus" value="">
                     <button type="submit" class="simpanbtn btn btn-primary"><i class="fa fa-plus-circle"></i> Simpan</button>
                 </div>
@@ -244,6 +248,7 @@
         const idmus = document.getElementById("id_mus");
         const perkiraan_anggaran = document.getElementById("perkiraan_anggaran");
         const volume = document.getElementById("volume");
+        const mitra_bidang = document.getElementById("mitra_bidang");
 
         const formData = {
             id_data: id,
@@ -271,6 +276,7 @@
             idmus.value = id;
             perkiraan_anggaran.value = data.getdatamusren[0]['perkiraan_anggaran'];
             volume.value = data.getdatamusren[0]['volume'];
+            mitra_bidang.value = data.getdatamusren[0]['catatan_mitra_bidang'];
         });
 
         $('#modal-edit').modal('show');

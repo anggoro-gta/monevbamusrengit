@@ -529,6 +529,7 @@ class Entryusulanmusren extends BaseController
         $array_datamusren[0]['opd_tujuan'] = $datamusren[0]['opd_tujuan'];
         $array_datamusren[0]['status'] = $datamusren[0]['status'];
         $array_datamusren[0]['catatan'] = $datamusren[0]['catatan'];
+        $array_datamusren[0]['catatan_mitra_bidang'] = $datamusren[0]['catatan_mitra_bidang'];
         $array_datamusren[0]['count_validasi'] = $datamusren[0]['count_validasi'];
         $array_datamusren[0]['prior'] = $datamusren[0]['prior'];
         $array_datamusren[0]['perkiraan_anggaran'] = number_format($datamusren[0]['perkiraan_anggaran'], 0, ",", ".");

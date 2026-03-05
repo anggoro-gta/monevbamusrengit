@@ -29,25 +29,25 @@
 </style>
 
 <?php if ($count_nomorttd == 1) { ?>
-    <p><b><u>Lampiran I</u></b> <br>
-        Nomor &nbsp;&nbsp;: 000.7/<?= $nomorttd[0]['nomor']; ?>/418.54/2025 <br>
-        Tanggal : 11 Maret 2025</p>
+    <p><b><u>Lampiran II</u></b> <br>
+        Nomor &nbsp;&nbsp;: 000.7/<?= $nomorttd[0]['nomor']; ?>/418.54/2026 <br>
+        Tanggal : 11 Maret 2026</p>
 <?php } else if ($count_nomorttd == 0) { ?>
-    <p><b><u>Lampiran I</u></b> <br>
-        Nomor &nbsp;&nbsp;: 000.7/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/418.54/2025 <br>
-        Tanggal : 11 Maret 2025</p>
+    <p><b><u>Lampiran II</u></b> <br>
+        Nomor &nbsp;&nbsp;: 000.7/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/418.54/2026 <br>
+        Tanggal : 11 Maret 2026</p>
 <?php } ?>
 
 <?php if ($id_bidang == 1) { ?>
-    <h2>Usulan Musrenbang RKPD 2026<br>
+    <h2>Usulan Musrenbang RKPD 2027<br>
         BIDANG INFRASTRUKTUR DAN PRASARANA WILAYAH<br>
         Tidak diakomodir</h2>
 <?php } else if ($id_bidang == 2) { ?>
-    <h2>Usulan Musrenbang RKPD 2026<br>
+    <h2>Usulan Musrenbang RKPD 2027<br>
         BIDANG SOSIAL BUDAYA<br>
         Tidak diakomodir</h2>
 <?php  } else if ($id_bidang == 3) { ?>
-    <h2>Usulan Musrenbang RKPD 2026<br>
+    <h2>Usulan Musrenbang RKPD 2027<br>
         BIDANG EKONOMI DAN SDA<br>
         Tidak diakomodir</h2>
 <?php } ?>
