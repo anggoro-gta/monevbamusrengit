@@ -73,7 +73,7 @@
                                                         <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Verifikasi</button>
                                                     </td>
                                                 </tr>
-                                            <?php } else { ?>
+                                            <?php } else if ($data_usulan[$i]['status'] == 1) { ?>
                                                 <tr>
                                                     <td bgcolor="#17f494"><?= $i + 1; ?></td>
                                                     <td bgcolor="#17f494"><?= $data_usulan[$i]['id_usulan']; ?></td>
@@ -93,6 +93,29 @@
                                                     <?php } ?>
                                                     <td bgcolor="#17f494"><?= $data_usulan[$i]['catatan']; ?></td>
                                                     <td bgcolor="#17f494">
+                                                        <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Verifikasi</button>
+                                                    </td>
+                                                </tr>
+                                            <?php } else { ?>
+                                                <tr>
+                                                    <td bgcolor="#fffc61"><?= $i + 1; ?></td>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['id_usulan']; ?></td>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['kecamatan']; ?></td>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['kamus_usulan']; ?></td>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['masalah']; ?></td>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['alamat']; ?></td>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['opd_tujuan']; ?></td>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['perkiraan_anggaran']; ?></td>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['volume']; ?></td>
+                                                    <?php if ($data_usulan[$i]['status'] == 0) { ?>
+                                                        <td bgcolor="#fffc61">Tidak Diakomodir</td>
+                                                    <?php } else if ($data_usulan[$i]['status'] == 1) { ?>
+                                                        <td bgcolor="#fffc61">Diakomodir</td>
+                                                    <?php } else if ($data_usulan[$i]['status'] == 99) { ?>
+                                                        <td bgcolor="#fffc61">Belum Diproses</td>
+                                                    <?php } ?>
+                                                    <td bgcolor="#fffc61"><?= $data_usulan[$i]['catatan']; ?></td>
+                                                    <td bgcolor="#fffc61">
                                                         <button onclick="showdetail('<?= $data_usulan[$i]['id']; ?>')" type="button" class="btn btn-block btn-warning"><i class="far fa-edit"></i> Verifikasi</button>
                                                     </td>
                                                 </tr>
@@ -168,7 +191,7 @@
                     </div>
                     <div class="form-group">
                         <label>SIPD Mitra Bappeda</label>
-                        <textarea class="form-control" name="mitra_bidang" id="mitra_bidang" disabled></textarea>                        
+                        <textarea class="form-control" name="mitra_bidang" id="mitra_bidang" disabled></textarea>
                     </div>
                     <input type="hidden" name="id_mus" id="id_mus" value="">
                     <button type="submit" class="simpanbtn btn btn-primary"><i class="fa fa-plus-circle"></i> Simpan</button>
